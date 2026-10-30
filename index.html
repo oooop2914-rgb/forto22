@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NorthNado — Web Developer & AI Enthusiast</title>
+<meta name="description" content="Portfolio NorthNado — Web Developer & AI Enthusiast. Building web apps, AI tools, and creative projects." />
+<meta name="theme-color" content="#0a0a0a" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="NorthNado — Web Developer & AI Enthusiast" />
+<meta property="og:description" content="Portfolio NorthNado — Building web apps, AI tools, and creative projects." />
+<meta property="og:image" content="https://files.catbox.moe/5zztnq.jpg" />
+<link rel="icon" type="image/jpeg" href="https://files.catbox.moe/5zztnq.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@0.451.0/dist/umd/lucide.min.js"></script>
+<style>
+:root{--spring:cubic-bezier(.34,1.56,.64,1);--smooth:cubic-bezier(.25,.1,.25,1)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{font-family:'Inter',system-ui,sans-serif;background:#0a0a0a;color:#f2f2f2;overflow-x:hidden}
+body{background:radial-gradient(circle at 50% 0%,#171524 0%,#0a0a0a 60%,#080808 100%);min-height:100vh;overflow-x:hidden}
+::selection{background:rgba(139,92,246,.35);color:#fff}
+@media (pointer:fine){body,a,button,input{cursor:none!important}}
+.glow{position:fixed;width:520px;height:520px;border-radius:50%;filter:blur(130px);opacity:.16;pointer-events:none;z-index:-2}
+.liquid-glass{position:relative;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.11);border-radius:22px;box-shadow:0 8px 32px rgba(0,0,0,.35),inset 0 1px 1px rgba(255,255,255,.18);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);transition:transform .45s var(--spring),background .3s,border-color .3s,box-shadow .35s}
+.spring:hover{transform:scale(1.03) translateY(-6px);background:rgba(255,255,255,.085);border-color:rgba(167,139,250,.35)}
+.spring:active{transform:scale(.97)}
+.btn{transition:transform .4s var(--spring),background .3s,border-color .3s}
+.btn:hover{transform:scale(1.05) translateY(-3px)}
+.btn:active{transform:scale(.95)}
+.reveal{opacity:0;filter:blur(10px);transform:translateY(32px) scale(.96);transition:opacity .7s var(--smooth),filter .7s var(--smooth),transform .75s var(--spring)}
+.reveal.on{opacity:1;filter:none;transform:none}
+/* lanyard */
+#lanyard-stage{position:relative;width:100%;height:540px;touch-action:pan-y;user-select:none;-webkit-user-select:none;z-index:30}
+#rope{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:25}
+#mount{position:absolute;top:0;left:50%;transform:translateX(-50%);width:46px;height:14px;border-radius:0 0 12px 12px;background:linear-gradient(#27272a,#09090b);border:1px solid rgba(255,255,255,.22);border-top:none;z-index:35}
+#card{position:absolute;top:0;left:0;width:248px;height:368px;touch-action:none;user-select:none;will-change:transform;transform-style:preserve-3d;z-index:28;cursor:grab}
+#card.drag{cursor:grabbing}
+.inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .65s var(--spring)}
+#card.flip .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:26px;padding:14px;background:rgba(18,18,24,.92);border:1px solid rgba(255,255,255,.22);box-shadow:0 25px 55px rgba(0,0,0,.75),0 0 35px rgba(139,92,246,.25);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+#card.drag .face{border-color:rgba(196,181,253,.85);box-shadow:0 38px 80px rgba(0,0,0,.88),0 0 60px rgba(139,92,246,.6)}
+.back{transform:rotateY(180deg)}
+.holo{position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.25),transparent 60%);mix-blend-mode:screen;pointer-events:none}
+.clasp{position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:34px;height:34px;pointer-events:none;z-index:40}
+.clasp i{display:block;width:20px;height:13px;margin:0 auto;border:3px solid #d4d4d8;border-radius:99px}
+.clasp b{display:block;width:30px;height:12px;margin:-2px auto 0;border-radius:6px;background:linear-gradient(#52525b,#18181b);border:1px solid rgba(255,255,255,.35)}
+.slot{width:50px;height:8px;border-radius:99px;background:#050508;border:1px solid rgba(255,255,255,.18);margin:2px auto 8px}
+/* slider */
+#track{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:.75rem .25rem 1.25rem;scrollbar-width:none}
+#track::-webkit-scrollbar{display:none}
+.pcard{flex:0 0 calc(100% - .5rem);scroll-snap-align:start;min-height:215px}
+@media(min-width:640px){.pcard{flex-basis:calc(50% - .6rem)}}
+@media(min-width:1024px){.pcard{flex-basis:calc(33.333% - .8rem)}}
+.fbtn.active{background:rgba(139,92,246,.24);border-color:rgba(167,139,250,.6);color:#fff}
+/* skills arena */
+#arena{position:relative;width:100%;height:410px;border-radius:28px;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+@media(max-width:640px){#arena{height:360px}}
+.bubble{position:absolute;top:0;left:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:22px;background:rgba(24,24,34,.85);border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 28px rgba(0,0,0,.5);will-change:transform;cursor:grab;touch-action:none;user-select:none}
+.bubble.grab{border-color:rgba(167,139,250,.9);z-index:30;cursor:grabbing}
+.tcur{display:inline-block;width:2px;height:1.1em;background:#a78bfa;margin-left:4px;vertical-align:middle;animation:bl .9s infinite}
+@keyframes bl{50%{opacity:0}}
+#intro{transition:opacity .85s,filter .85s,visibility .85s}
+#intro.hide{opacity:0;filter:blur(24px);visibility:hidden;pointer-events:none}
+#cdot,#cring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%)}
+#cdot{width:8px;height:8px;background:#fff}
+#cring{width:36px;height:36px;border:1.5px solid rgba(255,255,255,.4);transition:width .3s var(--spring),height .3s var(--spring),background .25s}
+#cring.h{width:54px;height:54px;background:rgba(255,255,255,.1)}
+#cring.d{width:28px;height:28px}
+@media(pointer:coarse),(max-width:768px){#cdot,#cring{display:none!important}}
+a:focus-visible,button:focus-visible{outline:2px solid #a78bfa;outline-offset:3px}
+</style>
+</head>
+<body class="antialiased">
+<div id="progress" class="fixed top-0 left-0 h-[3px] w-0 z-[100] bg-gradient-to-r from-white/40 via-violet-400 to-purple-600 pointer-events-none"></div>
+<div id="cdot" class="opacity-0"></div><div id="cring" class="opacity-0"></div>
+
+<div id="intro" class="fixed inset-0 z-[9990] flex items-center justify-center bg-[#0a0a0a] overflow-hidden">
+  <video src="https://files.catbox.moe/3xm705.mp4" autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover"></video>
+  <div class="absolute inset-0 bg-black/50"></div>
+  <button id="skip" type="button" class="liquid-glass btn absolute top-6 right-6 z-20 px-4 py-2 rounded-full text-sm text-white/90 flex items-center gap-2"><span>Skip Intro</span><i data-lucide="skip-forward" class="w-4 h-4"></i></button>
+  <div class="relative z-10 flex flex-col items-center gap-3">
+    <div class="w-9 h-9 rounded-full border-2 border-white/20 border-t-violet-400 animate-spin"></div>
+    <span class="text-xs uppercase tracking-[.25em] text-white/80">Loading...</span>
+  </div>
+</div>
+
+<canvas id="particles" class="fixed inset-0 w-full h-full pointer-events-none -z-10"></canvas>
+<div class="glow" style="top:-150px;left:-150px;background:radial-gradient(circle,#7c3aed,#3b82f6)"></div>
+<div class="glow" style="bottom:10%;right:-180px;background:radial-gradient(circle,#4f46e5,#9333ea)"></div>
+
+<header class="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 flex justify-center pointer-events-none">
+  <nav class="liquid-glass pointer-events-auto w-full max-w-5xl px-4 sm:px-6 py-3 flex items-center justify-between gap-2" style="border-radius:18px;overflow:visible">
+    <div class="relative flex items-center gap-2">
+      <a href="#hero" class="text-base sm:text-lg font-bold bg-gradient-to-r from-white to-violet-300 bg-clip-text text-transparent"><span class="dn">NorthNado</span></a>
+      <button id="nameBtn" type="button" class="btn p-1.5 rounded-xl bg-white/5 border border-white/10 text-white/75" aria-label="Ganti Nama"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button>
+      <div id="nameMenu" class="liquid-glass absolute top-full left-0 mt-3 w-48 p-2 hidden flex-col gap-1 z-50" style="border-radius:16px"></div>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium">
+      <a href="#projects" class="btn px-3 py-1.5 rounded-xl text-white/75 hover:bg-white/10">Projects</a>
+      <a href="#skills" class="btn px-3 py-1.5 rounded-xl text-white/75 hover:bg-white/10">Skills</a>
+      <a href="#contact" class="btn px-3 py-1.5 rounded-xl text-white/90 bg-white/5 border border-white/10">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="relative z-10">
+<section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-14 px-4 sm:px-6 overflow-hidden">
+  <div class="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <div class="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1 z-20">
+      <div class="reveal liquid-glass px-4 py-1.5 mb-5 inline-flex items-center gap-2" style="border-radius:99px">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-xs font-medium text-white/80">Available for Freelance & Creative Projects</span>
+      </div>
+      <h1 class="reveal text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.08] mb-4">
+        <span>Hi, I'm </span><span class="dn bg-gradient-to-r from-white via-violet-200 to-violet-400 bg-clip-text text-transparent">NorthNado</span>
+        <button id="heroName" type="button" class="btn inline-flex align-middle ml-1.5 p-2 liquid-glass text-white/75" aria-label="Ganti nama"><i data-lucide="pencil" class="w-4 h-4"></i></button>
+      </h1>
+      <div class="reveal h-10 flex items-center mb-4"><p class="text-lg sm:text-2xl font-semibold text-white/75"><span id="tw" class="text-violet-300">Web Developer</span><span class="tcur"></span></p></div>
+      <p class="reveal max-w-xl text-sm sm:text-base text-white/60 leading-relaxed mb-6">Crafting high-performance web applications, automated scraping tools, and modern AI-driven digital experiences with clean architecture and liquid-smooth interfaces.</p>
+
+      <div class="reveal liquid-glass p-4 sm:p-5 mb-8 w-full max-w-lg border-violet-400/25">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-violet-500/20 border border-violet-400/35 flex items-center justify-center text-violet-300"><i data-lucide="cake" class="w-4 h-4"></i></div>
+            <div class="text-left"><span class="block text-xs font-extrabold uppercase tracking-wider">Birthday Countdown</span><span class="block text-[11px] text-white/55">15 Mei • Menuju Ulang Tahun</span></div>
+          </div>
+          <div class="px-3 py-1 rounded-full bg-violet-500/30 border border-violet-400/40 text-[11px] font-extrabold text-violet-200">11 Tahun (11 y.o)</div>
+        </div>
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <div class="py-2.5 rounded-xl border border-white/10 bg-white/[.03]"><span id="bd" class="block text-xl sm:text-2xl font-extrabold font-mono">00</span><span class="text-[10px] uppercase tracking-widest text-white/50">Hari</span></div>
+          <div class="py-2.5 rounded-xl border border-white/10 bg-white/[.03]"><span id="bh" class="block text-xl sm:text-2xl font-extrabold font-mono">00</span><span class="text-[10px] uppercase tracking-widest text-white/50">Jam</span></div>
+          <div class="py-2.5 rounded-xl border border-white/10 bg-white/[.03]"><span id="bm" class="block text-xl sm:text-2xl font-extrabold font-mono">00</span><span class="text-[10px] uppercase tracking-widest text-white/50">Menit</span></div>
+          <div class="py-2.5 rounded-xl border border-white/10 bg-white/[.03]"><span id="bs" class="block text-xl sm:text-2xl font-extrabold font-mono text-violet-300">00</span><span class="text-[10px] uppercase tracking-widest text-white/50">Detik</span></div>
+        </div>
+        <p id="bnote" class="mt-2.5 text-[11px] text-white/55 text-center sm:text-left">Menghitung mundur menuju perayaan 15 Mei (Usia 11 Tahun) ✨</p>
+      </div>
+
+      <div class="reveal flex flex-wrap items-center justify-center lg:justify-start gap-4">
+        <a href="#projects" class="liquid-glass spring px-7 py-3.5 font-semibold text-white flex items-center gap-2.5 bg-violet-600/25" style="border-radius:16px"><span>View Projects</span><i data-lucide="arrow-down-right" class="w-4 h-4 text-violet-300"></i></a>
+        <a href="#contact" class="liquid-glass spring px-6 py-3.5 font-semibold text-white/80 flex items-center gap-2" style="border-radius:16px"><i data-lucide="sparkles" class="w-4 h-4 text-violet-400"></i><span>Get in Touch</span></a>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 flex justify-center order-1 lg:order-2">
+      <div id="lanyard-stage">
+        <div id="mount"></div>
+        <canvas id="rope"></canvas>
+        <div id="card" aria-label="Name tag">
+          <div class="clasp"><i></i><b></b></div>
+          <div class="inner">
+            <div class="face">
+              <div class="holo"></div>
+              <div>
+                <div class="slot"></div>
+                <div class="flex items-center justify-between px-1 mb-2">
+                  <span class="text-[10px] font-extrabold tracking-[.18em] uppercase text-white/80">DEVELOPER PASS</span>
+                  <span class="px-2 py-0.5 rounded-md bg-violet-500/20 border border-violet-400/30 text-[9px] font-mono font-bold text-violet-200">VIP-25</span>
+                </div>
+                <div class="relative w-full h-44 rounded-2xl overflow-hidden border border-white/20 bg-zinc-900 mb-3">
+                  <img src="https://files.catbox.moe/5zztnq.jpg" alt="Foto Profil" draggable="false" onerror="this.onerror=null;this.src='https://placehold.co/400x400/151520/ffffff?text=NorthNado'" class="w-full h-full object-cover pointer-events-none select-none" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                  <div class="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded-md bg-black/60 text-[9px] font-semibold text-emerald-300">● ACTIVE</span>
+                    <span class="text-[10px] font-mono text-white/80 bg-black/50 px-1.5 py-0.5 rounded">@zevnado</span>
+                  </div>
+                </div>
+              </div>
+              <div class="px-1 relative z-20">
+                <h3 class="dn text-lg font-extrabold text-white truncate">NorthNado</h3>
+                <p class="text-[11px] font-semibold text-violet-300">Fullstack & AI Engineer</p>
+                <div class="mt-3 pt-2.5 border-t border-white/15 flex justify-between"><span class="text-[9px] font-mono text-white/60">||| || ||| | ||</span><span class="text-[9px] font-mono tracking-widest text-white/60">ID-088985</span></div>
+              </div>
+            </div>
+            <div class="face back">
+              <div class="holo"></div>
+              <div>
+                <div class="slot"></div>
+                <div class="text-center mb-3"><span class="text-[10px] font-bold uppercase tracking-[.2em] text-violet-300">ACCESS CREDENTIALS</span><h4 class="dn text-base font-extrabold mt-0.5">NorthNado</h4></div>
+                <div class="w-36 h-36 mx-auto rounded-2xl bg-white p-2.5 mb-3">
+                  <svg viewBox="0 0 100 100" class="w-full h-full" fill="#18181b"><path d="M5,5H35V35H5ZM12,12V28H28V12ZM17,17H23V23H17Z" fill-rule="evenodd"/><path d="M65,5H95V35H65ZM72,12V28H88V12ZM77,17H83V23H77Z" fill-rule="evenodd"/><path d="M5,65H35V95H5ZM12,72V88H28V72ZM17,77H23V83H17Z" fill-rule="evenodd"/><rect x="42" y="8" width="7" height="7"/><rect x="52" y="15" width="7" height="14"/><rect x="8" y="43" width="14" height="7"/><rect x="45" y="45" width="12" height="12" fill="#6d28d9"/><rect x="64" y="43" width="7" height="14"/><rect x="78" y="43" width="14" height="7"/><rect x="42" y="64" width="14" height="7"/><rect x="64" y="64" width="14" height="14"/><rect x="55" y="84" width="16" height="8"/></svg>
+                </div>
+                <div class="space-y-1.5 text-[11px] px-2">
+                  <div class="flex justify-between border-b border-white/10 pb-1"><span class="text-white/45">Role</span><span class="font-semibold">Web & AI Dev</span></div>
+                  <div class="flex justify-between border-b border-white/10 pb-1"><span class="text-white/45">TikTok</span><span class="font-semibold text-violet-300">@zevnado</span></div>
+                </div>
+              </div>
+              <div class="text-center text-[9px] font-mono text-white/45">AUTHORIZED SIGNATURE • 2025</div>
+            </div>
+          </div>
+        </div>
+        <div class="absolute bottom-1 left-1/2 -translate-x-1/2 flex items-center gap-2 z-30 whitespace-nowrap">
+          <span class="text-[11px] text-white/65 liquid-glass px-3.5 py-1.5" style="border-radius:99px">Tarik & Lepas Name Tag</span>
+          <button id="flipBtn" type="button" class="btn liquid-glass px-3 py-1.5 text-[11px] font-semibold text-violet-200" style="border-radius:99px">Flip ID</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="py-20 sm:py-28 px-4 sm:px-6 max-w-6xl mx-auto">
+  <div class="reveal flex flex-col items-center text-center mb-10">
+    <h2 class="text-3xl sm:text-4xl font-extrabold">My Projects</h2>
+    <div class="h-1 w-24 rounded-full bg-gradient-to-r from-transparent via-violet-400 to-transparent my-3"></div>
+    <p class="text-sm text-white/60">Kumpulan project web, AI, dan tools buatan saya.</p>
+  </div>
+  <div class="reveal flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+    <div id="filters" class="flex flex-wrap items-center justify-center gap-2"></div>
+    <div class="flex items-center gap-2.5">
+      <span id="count" class="text-xs font-mono text-white/55 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10">13 Projects</span>
+      <button id="prev" type="button" class="liquid-glass btn w-10 h-10 flex items-center justify-center" style="border-radius:99px" aria-label="Kiri"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+      <button id="next" type="button" class="liquid-glass btn w-10 h-10 flex items-center justify-center" style="border-radius:99px" aria-label="Kanan"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+    </div>
+  </div>
+  <div id="track"></div>
+  <p class="mt-2 text-xs text-white/45 px-1">Geser kanan/kiri atau gunakan tombol panah untuk melihat project</p>
+</section>
+
+<section id="skills" class="py-20 sm:py-28 px-4 sm:px-6 max-w-6xl mx-auto">
+  <div class="reveal flex flex-col items-center text-center mb-10">
+    <h2 class="text-3xl sm:text-4xl font-extrabold">My Skills</h2>
+    <div class="h-1 w-24 rounded-full bg-gradient-to-r from-transparent via-violet-400 to-transparent my-3"></div>
+    <p class="text-sm text-white/60 max-w-lg">Ikon skill di kotak interaktif yang memantul. Coba tarik dan lempar!</p>
+  </div>
+  <div class="reveal mb-12">
+    <div class="flex flex-wrap items-center justify-end gap-2 mb-3">
+      <button id="boost" type="button" class="liquid-glass btn px-3.5 py-1.5 text-xs font-semibold text-violet-200" style="border-radius:99px">⚡ Boost</button>
+      <button id="grav" type="button" class="liquid-glass btn px-3.5 py-1.5 text-xs font-semibold text-white/80" style="border-radius:99px">Gravity: Zero-G</button>
+    </div>
+    <div id="arena" class="liquid-glass"></div>
+  </div>
+  <div id="skillGrid" class="grid grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-5"></div>
+</section>
+
+<section id="contact" class="py-20 sm:py-28 px-4 sm:px-6 max-w-4xl mx-auto">
+  <div class="reveal flex flex-col items-center text-center mb-12">
+    <h2 class="text-3xl sm:text-4xl font-extrabold">Get in Touch</h2>
+    <div class="h-1 w-24 rounded-full bg-gradient-to-r from-transparent via-violet-400 to-transparent my-3"></div>
+    <p class="text-sm text-white/60 max-w-md">Punya ide project menarik, butuh kolaborasi, atau sekadar ingin menyapa? Hubungi saya kapan saja.</p>
+  </div>
+  <div class="reveal liquid-glass p-6 sm:p-10 space-y-5" style="border-radius:28px">
+    <div class="liquid-glass p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <a href="mailto:anjayutm@gmail.com" class="flex items-center gap-4 min-w-0">
+        <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0"><i data-lucide="mail" class="w-5 h-5"></i></div>
+        <div class="min-w-0"><span class="block text-xs uppercase tracking-wider text-white/45 font-semibold">Email</span><span class="block font-bold truncate">anjayutm@gmail.com</span></div>
+      </a>
+      <button type="button" data-copy="anjayutm@gmail.com" class="copy btn self-start px-4 py-2 rounded-xl bg-white/5 border border-white/15 text-xs font-semibold">Copy Email</button>
+    </div>
+    <div class="liquid-glass p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <a href="https://wa.me/6288985128730" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 min-w-0">
+        <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0"><i data-lucide="message-circle" class="w-5 h-5"></i></div>
+        <div><span class="block text-xs uppercase tracking-wider text-white/45 font-semibold">WhatsApp</span><span class="block font-bold">+62 889-8512-8730</span></div>
+      </a>
+      <button type="button" data-copy="+62 889-8512-8730" class="copy btn self-start px-4 py-2 rounded-xl bg-white/5 border border-white/15 text-xs font-semibold">Copy Nomor</button>
+    </div>
+    <div class="liquid-glass p-4">
+      <a href="https://www.tiktok.com/@zevnado" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0"><i data-lucide="music-2" class="w-5 h-5"></i></div>
+        <div class="flex-1"><span class="block text-xs uppercase tracking-wider text-white/45 font-semibold">TikTok</span><span class="block font-bold">@zevnado</span></div>
+        <span class="px-3.5 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white/75">Follow ↗</span>
+      </a>
+    </div>
+    <div class="pt-4 flex justify-center">
+      <a href="https://wa.me/6288985128730" target="_blank" rel="noopener noreferrer" class="liquid-glass spring w-full sm:w-auto px-8 py-4 font-bold text-white flex items-center justify-center gap-3 bg-emerald-500/20 border-emerald-400/35" style="border-radius:16px"><i data-lucide="message-circle" class="w-5 h-5 text-emerald-300"></i><span>Chat on WhatsApp</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="relative z-10 border-t border-white/10 py-10 px-4 sm:px-6 mt-10">
+  <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+    <p class="text-sm text-white/60">© 2025 <span class="dn font-semibold text-white/90">NorthNado</span>. All rights reserved.</p>
+    <a href="https://www.tiktok.com/@zevnado" target="_blank" rel="noopener noreferrer" class="btn liquid-glass px-3.5 h-10 flex items-center gap-2 text-white/85 text-xs font-semibold" style="border-radius:12px"><i data-lucide="music-2" class="w-4 h-4"></i>@zevnado</a>
+  </div>
+</footer>
+
+<div id="toast" class="liquid-glass fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-20 opacity-0 pointer-events-none z-[9995] px-5 py-2.5 text-sm font-semibold transition-all duration-300" style="border-radius:99px" role="status">✓ Copied!</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const $ = id => document.getElementById(id);
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const icons = () => { try { window.lucide && lucide.createIcons(); } catch (e) {} };
+
+  /* ---------- DATA ---------- */
+  const PROJECTS = [
+    ['Tools Scrape Web','Web scraping toolkit.','tools','terminal','violet','Automated Extractor'],
+    ['Web Share Code Snippet','Share your code snippets instantly.','tools web','code-2','blue','Developer Utility'],
+    ['WormGPT','AI-powered assistant.','ai','bot','purple','Conversational LLM'],
+    ['Dompetku','Personal finance tracker.','web tools','wallet','emerald','Finance Web App'],
+    ['Stream Anime','Anime streaming platform.','streaming','tv','pink','HD Media Portal'],
+    ['Nonton Film','Movie streaming.','streaming','film','rose','Cinema On-Demand'],
+    ['Text to Image','AI image generation.','ai','image','indigo','Generative Art'],
+    ['Text to Video','AI video generation.','ai','video','fuchsia','AI Motion Engine'],
+    ['Website AI','AI tools hub.','ai web','cpu','violet','All-in-One AI Directory'],
+    ['Web Generate AM/PM','Time generator / utility.','tools web','clock','amber','Time Formatter Tool'],
+    ['Rest API','Custom API endpoints.','tools web','server','cyan','Backend Service'],
+    ['Web Musik','Music player / streaming.','streaming web','music','teal','Audio Web Player'],
+    ['Web Nonton Dracin','Chinese drama streaming.','streaming','clapperboard','red','Asian Drama Hub']
+  ];
+  const COLORS = {violet:'#a78bfa',blue:'#93c5fd',purple:'#d8b4fe',emerald:'#6ee7b7',pink:'#f9a8d4',rose:'#fda4af',indigo:'#a5b4fc',fuchsia:'#f0abfc',amber:'#fcd34d',cyan:'#67e8f9',teal:'#5eead4',red:'#fca5a5'};
+  const SKILLS = [
+    ['HTML5',95,'#f97316','file-code'],['CSS3',90,'#3b82f6','paintbrush'],['JavaScript',88,'#facc15','braces'],
+    ['React',85,'#22d3ee','atom'],['Node.js',82,'#34d399','hexagon'],['Python',80,'#818cf8','terminal-square'],
+    ['Tailwind',88,'#38bdf8','wind'],['Git',85,'#fb7185','git-branch'],['REST API',84,'#2dd4bf','webhook'],
+    ['AI Prompt',90,'#c084fc','sparkles'],['UI/UX',78,'#f472b6','pen-tool'],['Scraping',82,'#a78bfa','globe']
+  ];
+
+  /* ---------- RENDER ---------- */
+  $('track').innerHTML = PROJECTS.map(p => `
+    <article data-cat="${p[2]}" class="pcard liquid-glass spring p-6 flex flex-col justify-between gap-4">
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <div class="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center" style="color:${COLORS[p[4]]}"><i data-lucide="${p[3]}" class="w-5 h-5"></i></div>
+          <div class="flex gap-1.5">${p[2].split(' ').map(c => `<span class="px-2.5 py-0.5 rounded-full text-[11px] bg-white/5 border border-white/10 text-white/70 capitalize">${c}</span>`).join('')}</div>
+        </div>
+        <h3 class="text-lg font-bold mb-1.5">${p[0]}</h3>
+        <p class="text-sm text-white/60">${p[1]}</p>
+      </div>
+      <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-violet-300/90 font-medium"><span>${p[5]}</span><i data-lucide="arrow-up-right" class="w-4 h-4"></i></div>
+    </article>`).join('');
+
+  $('filters').innerHTML = ['all','ai','streaming','tools','web'].map((f, i) =>
+    `<button type="button" data-f="${f}" class="fbtn ${i ? '' : 'active'} liquid-glass btn px-5 py-2 text-xs sm:text-sm font-semibold text-white/80" style="border-radius:99px">${f === 'all' ? 'All' : f === 'ai' ? 'AI' : f[0].toUpperCase() + f.slice(1)}</button>`).join('');
+
+  $('skillGrid').innerHTML = SKILLS.map(s => `
+    <div class="reveal liquid-glass p-4 sm:p-5" style="border-radius:18px">
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0" style="color:${s[2]}"><i data-lucide="${s[3]}" class="w-4 h-4"></i></div>
+          <span class="font-bold text-xs sm:text-base truncate">${s[0]}</span>
+        </div>
+        <span class="text-xs sm:text-sm font-bold text-violet-300">${s[1]}%</span>
+      </div>
+      <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden"><div class="bar h-full rounded-full bg-gradient-to-r from-white/90 via-violet-300 to-purple-500" style="width:0;transition:width 1s ease-out" data-w="${s[1]}%"></div></div>
+    </div>`).join('');
+
+  icons();
+
+  /* ---------- INTRO ---------- */
+  let introDone = false;
+  const hideIntro = () => { if (introDone) return; introDone = true; $('intro').classList.add('hide'); setTimeout(() => { const v = document.querySelector('#intro video'); v && v.pause(); }, 900); };
+  $('skip').addEventListener('click', hideIntro);
+  document.querySelector('#intro video').addEventListener('ended', hideIntro);
+  setTimeout(hideIntro, 3600);
+
+  /* ---------- REVEAL + PROGRESS + ANCHORS ---------- */
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('on');
+    e.target.querySelectorAll('.bar').forEach(b => b.style.width = b.dataset.w);
+    io.unobserve(e.target);
+  }), { threshold: .1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  setTimeout(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('on')), 4500); // fallback
+
+  addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    $('progress').style.width = (h > 0 ? scrollY / h * 100 : 0) + '%';
+  }, { passive: true });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  }));
+
+  /* ---------- CURSOR ---------- */
+  if (matchMedia('(pointer:fine)').matches) {
+    const dot = $('cdot'), ring = $('cring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    addEventListener('pointermove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      dot.classList.remove('opacity-0'); ring.classList.remove('opacity-0');
+      ring.classList.toggle('h', !!(e.target.closest && e.target.closest('a,button')));
+    });
+    addEventListener('pointerdown', () => ring.classList.add('d'));
+    addEventListener('pointerup', () => ring.classList.remove('d'));
+    (function loop() { rx += (mx - rx) * .2; ry += (my - ry) * .2; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(loop); })();
+  }
+
+  /* ---------- DISPLAY NAME ---------- */
+  const NAMES = ['NorthNado','zevnado','zev','North','nado'], KEY = 'northnado_display_name';
+  let curName = 'NorthNado';
+  try { const s = localStorage.getItem(KEY); if (NAMES.includes(s)) curName = s; } catch (e) {}
+  const menu = $('nameMenu');
+  menu.innerHTML = '<div class="px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/45">Pilih Display Name</div>' +
+    NAMES.map(n => `<button type="button" data-n="${n}" class="nopt w-full text-left px-3 py-1.5 rounded-xl text-sm font-medium text-white/85 hover:bg-white/10 flex justify-between"><span>${n}</span><span class="dot text-violet-400"></span></button>`).join('');
+  function setName(n) {
+    curName = n;
+    document.querySelectorAll('.dn').forEach(el => el.textContent = n);
+    document.title = `${n} — Web Developer & AI Enthusiast`;
+    menu.querySelectorAll('.nopt').forEach(b => b.querySelector('.dot').textContent = b.dataset.n === n ? '●' : '');
+    try { localStorage.setItem(KEY, n); } catch (e) {}
+  }
+  setName(curName);
+  const closeMenu = () => { menu.classList.add('hidden'); menu.classList.remove('flex'); };
+  $('nameBtn').addEventListener('click', e => { e.stopPropagation(); menu.classList.toggle('hidden'); menu.classList.toggle('flex'); });
+  menu.addEventListener('click', e => { const b = e.target.closest('.nopt'); if (b) { setName(b.dataset.n); closeMenu(); } e.stopPropagation(); });
+  document.addEventListener('click', closeMenu);
+  $('heroName').addEventListener('click', () => setName(NAMES[(NAMES.indexOf(curName) + 1) % NAMES.length]));
+
+  /* ---------- TYPEWRITER ---------- */
+  const roles = ['Web Developer','AI Enthusiast','Creative Coder','Problem Solver'];
+  let ri = 0, ci = roles[0].length, del = true;
+  (function tw() {
+    const r = roles[ri];
+    ci += del ? -1 : 1;
+    $('tw').textContent = r.substring(0, ci);
+    let sp = del ? 45 : 90;
+    if (!del && ci === r.length) { sp = 2000; del = true; }
+    else if (del && ci === 0) { del = false; ri = (ri + 1) % roles.length; sp = 350; }
+    setTimeout(tw, sp);
+  })();
+
+  /* ---------- BIRTHDAY (15 Mei, usia 11) ---------- */
+  const AGE = 11, pad = n => String(n).padStart(2, '0');
+  function bday() {
+    const now = new Date(), y = now.getFullYear();
+    if (now.getMonth() === 4 && now.getDate() === 15) {
+      ['bd','bh','bm','bs'].forEach(id => $(id).textContent = '00');
+      $('bnote').textContent = `🎉 Selamat Ulang Tahun ke-${AGE}, ${curName}! (15 Mei)`;
+      return;
+    }
+    let t = new Date(y, 4, 15);
+    if (now > t) t = new Date(y + 1, 4, 15);
+    const d = t - now;
+    $('bd').textContent = pad(Math.floor(d / 864e5));
+    $('bh').textContent = pad(Math.floor(d / 36e5) % 24);
+    $('bm').textContent = pad(Math.floor(d / 6e4) % 60);
+    $('bs').textContent = pad(Math.floor(d / 1e3) % 60);
+    $('bnote').textContent = `Menghitung mundur menuju perayaan 15 Mei (Usia ${AGE} Tahun) ✨`;
+  }
+  bday(); setInterval(bday, 1000);
+
+  /* ---------- LANYARD ---------- */
+  (function () {
+    const stage = $('lanyard-stage'), card = $('card'), cv = $('rope'), ctx = cv.getContext('2d');
+    const CW = 248, N = 14, SEG = 115 / (N - 1);
+    let W, H, nodes = [], dragging = false, px = 0, py = 0, offX = 0, offY = 0;
+    let ang = 12, angV = 0, tX = 0, tY = 0;
+
+    function init() {
+      W = stage.clientWidth || 340; H = stage.clientHeight || 540;
+      cv.width = W; cv.height = H;
+      nodes = [];
+      for (let i = 0; i < N; i++) {
+        const x = W / 2 + (i / N) * 50, y = 8 + i * SEG * .65;
+        nodes.push({ x, y, ox: x - i * .8, oy: y });
+      }
+    }
+    init();
+    let lastW = stage.clientWidth;
+    addEventListener('resize', () => { if (stage.clientWidth !== lastW) { lastW = stage.clientWidth; init(); } });
+
+    $('flipBtn').addEventListener('click', e => { e.stopPropagation(); card.classList.toggle('flip'); });
+    card.addEventListener('dblclick', () => card.classList.toggle('flip'));
+
+    const local = e => { const r = stage.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+    card.addEventListener('pointerdown', e => {
+      dragging = true;
+      const [lx, ly] = local(e), n = nodes[N - 1];
+      offX = lx - n.x; offY = ly - n.y; px = n.x; py = n.y;
+      try { card.setPointerCapture(e.pointerId); } catch (err) {}
+      card.classList.add('drag');
+    });
+    card.addEventListener('pointermove', e => {
+      const [lx, ly] = local(e);
+      if (!dragging) {
+        const n = nodes[N - 1];
+        const dx = (lx - n.x) / (CW / 2), dy = (ly - (n.y + 184)) / 184;
+        if (Math.abs(dx) < 1.2 && Math.abs(dy) < 1.2) { tY = dx * 12; tX = -dy * 10; }
+        return;
+      }
+      e.preventDefault();
+      const mr = Math.max(160, W * .65);
+      px = clamp(lx - offX, W / 2 - mr, W / 2 + mr);
+      py = clamp(ly - offY, 25, H - 120);
+    });
+    const release = e => {
+      if (!dragging) return;
+      dragging = false;
+      try { card.releasePointerCapture(e.pointerId); } catch (err) {}
+      card.classList.remove('drag');
+    };
+    card.addEventListener('pointerup', release);
+    card.addEventListener('pointercancel', release);
+    card.addEventListener('pointerleave', () => { if (!dragging) { tX = 0; tY = 0; } });
+
+    function step() {
+      const ax = W / 2, ay = 8, last = nodes[N - 1];
+      for (let i = 1; i < N; i++) {
+        const n = nodes[i], vx = (n.x - n.ox) * .965, vy = (n.y - n.oy) * .965;
+        n.ox = n.x; n.oy = n.y; n.x += vx; n.y += vy + (i === N - 1 ? 1.35 : .45);
+      }
+      if (dragging) {
+        const pre = last.x;
+        last.x += (px - last.x) * .42; last.y += (py - last.y) * .42;
+        angV += (last.x - pre) * .08;
+      }
+      for (let it = 0; it < 14; it++) {
+        nodes[0].x = ax; nodes[0].y = ay;
+        for (let i = 0; i < N - 1; i++) {
+          const a = nodes[i], b = nodes[i + 1];
+          const dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || .0001;
+          const diff = (d - SEG) / d, k = dragging ? .36 : .48;
+          if (i === 0) { b.x -= dx * diff * k * 2; b.y -= dy * diff * k * 2; }
+          else { a.x += dx * diff * k; a.y += dy * diff * k; b.x -= dx * diff * k; b.y -= dy * diff * k; }
+        }
+      }
+      const neck = nodes[N - 4];
+      const target = -Math.atan2(last.x - neck.x, last.y - neck.y) * 57.2958 * .65;
+      angV = (angV + (target - ang) * .12) * .84; ang += angV;
+      const vx = last.x - last.ox, vy = last.y - last.oy;
+      if (dragging) {
+        tY += (clamp((last.x - ax) * .14, -28, 28) - tY) * .2;
+        tX += (clamp(-(last.y - 120) * .1, -22, 22) - tX) * .2;
+      } else {
+        tY += (clamp(vx * 1.6, -28, 28) - tY) * .12;
+        tX += (clamp(-vy * 1.2, -22, 22) - tX) * .12;
+      }
+      card.style.transformOrigin = '50% -24px';
+      card.style.transform = `perspective(900px) translate3d(${(last.x - CW / 2).toFixed(1)}px,${(last.y + 24).toFixed(1)}px,0) rotateZ(${ang.toFixed(2)}deg) rotateX(${tX.toFixed(2)}deg) rotateY(${tY.toFixed(2)}deg) scale(${dragging ? 1.04 : 1})`;
+      card.style.setProperty('--gx', clamp(50 + tY * 1.8, 10, 90) + '%');
+      card.style.setProperty('--gy', clamp(35 - tX * 1.8, 10, 90) + '%');
+
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineCap = ctx.lineJoin = 'round';
+      const path = s => { ctx.beginPath(); nodes.forEach((n, i) => { const x = n.x + s * (1 - i / (N - 1)) * 14; i ? ctx.lineTo(x, n.y) : ctx.moveTo(x, n.y); }); };
+      path(-1); ctx.strokeStyle = 'rgba(76,29,149,.85)'; ctx.lineWidth = 13; ctx.stroke();
+      const g = ctx.createLinearGradient(ax, ay, last.x, last.y + 1);
+      g.addColorStop(0, '#5b21b6'); g.addColorStop(.5, '#7c3aed'); g.addColorStop(1, '#a78bfa');
+      path(1); ctx.strokeStyle = g; ctx.lineWidth = 13; ctx.stroke();
+      ctx.setLineDash([4, 5]); ctx.strokeStyle = 'rgba(255,255,255,.45)'; ctx.lineWidth = 1.5; ctx.stroke(); ctx.setLineDash([]);
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
+
+  /* ---------- PROJECT FILTER + SLIDER ---------- */
+  (function () {
+    const track = $('track'), cards = [...track.children];
+    const visible = () => cards.filter(c => c.style.display !== 'none');
+    const stepW = () => (visible()[0] ? visible()[0].offsetWidth + 19 : track.clientWidth * .85);
+    $('prev').addEventListener('click', () => track.scrollBy({ left: -stepW(), behavior: 'smooth' }));
+    $('next').addEventListener('click', () => track.scrollBy({ left: stepW(), behavior: 'smooth' }));
+    $('filters').addEventListener('click', e => {
+      const b = e.target.closest('.fbtn'); if (!b) return;
+      document.querySelectorAll('.fbtn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      const f = b.dataset.f;
+      cards.forEach(c => { c.style.display = (f === 'all' || c.dataset.cat.split(' ').includes(f)) ? '' : 'none'; });
+      track.scrollTo({ left: 0 });
+      const n = visible().length;
+      $('count').textContent = `${n} Project${n > 1 ? 's' : ''}`;
+    });
+    // drag-to-scroll (mouse only; touch scrolls natively)
+    let down = false, sx = 0, sl = 0;
+    track.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; down = true; sx = e.clientX; sl = track.scrollLeft; track.style.scrollBehavior = 'auto'; track.style.scrollSnapType = 'none'; });
+    addEventListener('pointermove', e => { if (down) track.scrollLeft = sl - (e.clientX - sx) * 1.3; });
+    addEventListener('pointerup', () => { if (!down) return; down = false; track.style.scrollBehavior = ''; track.style.scrollSnapType = ''; });
+  })();
+
+  /* ---------- SKILLS PHYSICS ---------- */
+  (function () {
+    const box = $('arena'); let W = box.clientWidth || 800, H = box.clientHeight || 410, gravity = false;
+    const size = () => innerWidth < 640 ? 74 : 92;
+    const bubbles = [];
+    SKILLS.forEach((s, i) => {
+      const r = size() / 2, el = document.createElement('div');
+      el.className = 'bubble';
+      el.style.width = el.style.height = size() + 'px';
+      el.innerHTML = `<i data-lucide="${s[3]}" class="w-6 h-6" style="color:${s[2]}"></i><span class="text-[11px] font-extrabold leading-none">${s[0]}</span><span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/10 text-violet-200">${s[1]}%</span>`;
+      box.appendChild(el);
+      const cols = 4, cw = (W - r * 2) / cols, ch = (H - r * 2) / 3, a = Math.random() * 6.283;
+      const b = { el, r, x: clamp(r + (i % cols) * cw + cw / 2, r, W - r), y: clamp(r + Math.floor(i / cols) * ch + ch / 2, r, H - r),
+        vx: Math.cos(a) * 2.1, vy: Math.sin(a) * 2.1, rot: 0, vr: (Math.random() - .5) * .7, drag: false, lx: 0, ly: 0 };
+      el.addEventListener('pointerdown', e => {
+        e.stopPropagation(); b.drag = true; el.classList.add('grab');
+        try { el.setPointerCapture(e.pointerId); } catch (err) {}
+        const rc = box.getBoundingClientRect(); b.lx = e.clientX - rc.left; b.ly = e.clientY - rc.top; b.vx = b.vy = 0;
+      });
+      el.addEventListener('pointermove', e => {
+        if (!b.drag) return; e.preventDefault();
+        const rc = box.getBoundingClientRect();
+        const x = clamp(e.clientX - rc.left, b.r, W - b.r), y = clamp(e.clientY - rc.top, b.r, H - b.r);
+        b.vx = (x - b.lx) * .65; b.vy = (y - b.ly) * .65; b.x = b.lx = x; b.y = b.ly = y;
+      });
+      const rel = e => {
+        if (!b.drag) return; b.drag = false; el.classList.remove('grab');
+        try { el.releasePointerCapture(e.pointerId); } catch (err) {}
+        b.vx = clamp(b.vx, -14, 14); b.vy = clamp(b.vy, -14, 14);
+        if (Math.hypot(b.vx, b.vy) < 1.2) { b.vx = (Math.random() - .5) * 4; b.vy = (Math.random() - .5) * 4; }
+      };
+      el.addEventListener('pointerup', rel); el.addEventListener('pointercancel', rel);
+      bubbles.push(b);
+    });
+    icons();
+
+    $('boost').addEventListener('click', () => bubbles.forEach(b => {
+      const a = Math.random() * 6.283, p = 6 + Math.random() * 5;
+      b.vx = Math.cos(a) * p; b.vy = Math.sin(a) * p - (gravity ? 5 : 0); b.vr = (Math.random() - .5) * 3;
+    }));
+    $('grav').addEventListener('click', () => {
+      gravity = !gravity;
+      $('grav').textContent = gravity ? 'Gravity: ON' : 'Gravity: Zero-G';
+      if (!gravity) bubbles.forEach(b => { if (Math.hypot(b.vx, b.vy) < 1.8) { b.vx = (Math.random() - .5) * 4.5; b.vy = (Math.random() - .5) * 4.5; } });
+    });
+    addEventListener('resize', () => {
+      W = box.clientWidth || W; H = box.clientHeight || H;
+      const r = size() / 2;
+      bubbles.forEach(b => { b.r = r; b.el.style.width = b.el.style.height = r * 2 + 'px'; b.x = clamp(b.x, r, W - r); b.y = clamp(b.y, r, H - r); });
+    });
+
+    (function tick() {
+      const k = gravity ? .88 : 1;
+      bubbles.forEach(b => {
+        if (b.drag) return;
+        if (gravity) { b.vy += .22; b.vx *= .995; b.vy *= .995; }
+        else {
+          const sp = Math.hypot(b.vx, b.vy);
+          if (sp > 3.2) { b.vx *= .985; b.vy *= .985; }
+          else if (sp < 1.35) { if (sp < .05) { b.vx = 1.5; b.vy = 1.2; } else { b.vx *= 1.03; b.vy *= 1.03; } }
+        }
+        b.x += b.vx; b.y += b.vy; b.rot = (b.rot + b.vr) * .96;
+        if (b.x - b.r < 0) { b.x = b.r; b.vx = Math.abs(b.vx) * k; b.vr = (Math.random() - .5) * 1.6; }
+        else if (b.x + b.r > W) { b.x = W - b.r; b.vx = -Math.abs(b.vx) * k; b.vr = (Math.random() - .5) * 1.6; }
+        if (b.y - b.r < 0) { b.y = b.r; b.vy = Math.abs(b.vy) * k; }
+        else if (b.y + b.r > H) {
+          b.y = H - b.r; b.vy = -Math.abs(b.vy) * (gravity ? .86 : 1);
+          if (gravity && Math.abs(b.vy) < 1.8) b.vy = -Math.random() * 4.5 - 2;
+        }
+      });
+      for (let i = 0; i < bubbles.length; i++) for (let j = i + 1; j < bubbles.length; j++) {
+        const a = bubbles[i], c = bubbles[j], dx = c.x - a.x, dy = c.y - a.y, d = Math.hypot(dx, dy) || .001, min = a.r + c.r + 4;
+        if (d >= min) continue;
+        const nx = dx / d, ny = dy / d, ov = (min - d) / 2;
+        if (!a.drag) { a.x -= nx * ov; a.y -= ny * ov; }
+        if (!c.drag) { c.x += nx * ov; c.y += ny * ov; }
+        const p = nx * (a.vx - c.vx) + ny * (a.vy - c.vy);
+        if (p <= 0) continue; // hanya saat saling mendekat
+        if (!a.drag) { a.vx -= p * nx * .95; a.vy -= p * ny * .95; }
+        if (!c.drag) { c.vx += p * nx * .95; c.vy += p * ny * .95; }
+      }
+      bubbles.forEach(b => { b.el.style.transform = `translate3d(${(b.x - b.r).toFixed(1)}px,${(b.y - b.r).toFixed(1)}px,0) rotate(${b.rot.toFixed(1)}deg) scale(${b.drag ? 1.12 : 1})`; });
+      requestAnimationFrame(tick);
+    })();
+  })();
+
+  /* ---------- COPY + TOAST ---------- */
+  let tt;
+  function toast(m) {
+    const t = $('toast'); t.textContent = '✓ ' + m;
+    t.classList.remove('translate-y-20', 'opacity-0');
+    clearTimeout(tt); tt = setTimeout(() => t.classList.add('translate-y-20', 'opacity-0'), 2000);
+  }
+  function copyText(s) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(s).catch(() => legacy(s));
+    legacy(s);
+  }
+  function legacy(s) {
+    const ta = document.createElement('textarea'); ta.value = s; ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    ta.remove();
+  }
+  document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', () => { copyText(b.dataset.copy); toast('Copied!'); }));
+
+  /* ---------- PARTICLES ---------- */
+  (function () {
+    const cv = $('particles'), c = cv.getContext('2d'); let w, h, ps = [];
+    const make = () => ({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - .5) * .45, vy: (Math.random() - .5) * .45, r: Math.random() * 1.2 + 1, a: Math.random() * .3 + .3 });
+    function init() { w = cv.width = innerWidth; h = cv.height = innerHeight; ps = Array.from({ length: innerWidth < 768 ? 38 : 75 }, make); }
+    init();
+    let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(init, 150); });
+    (function draw() {
+      c.clearRect(0, 0, w, h);
+      for (let i = 0; i < ps.length; i++) {
+        const p = ps[i]; p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+        c.beginPath(); c.arc(p.x, p.y, p.r, 0, 6.283); c.fillStyle = `rgba(255,255,255,${p.a})`; c.fill();
+        for (let j = i + 1; j < ps.length; j++) {
+          const q = ps[j], d = Math.hypot(p.x - q.x, p.y - q.y);
+          if (d < 120) { c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(q.x, q.y); c.strokeStyle = `rgba(255,255,255,${(1 - d / 120) * .14})`; c.lineWidth = .8; c.stroke(); }
+        }
+      }
+      requestAnimationFrame(draw);
+    })();
+  })();
+});
+</script>
+</body>
+</html>
